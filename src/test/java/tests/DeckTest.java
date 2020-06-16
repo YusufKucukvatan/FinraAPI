@@ -6,11 +6,12 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import utilities.ConfigurationReader;
+import utilities.EndPoints;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class DeckTest {
+public class DeckTest implements EndPoints {
 
     @BeforeAll
     public static void setup() {
@@ -22,7 +23,7 @@ public class DeckTest {
         given()
                 .queryParam("jokers_enabled","true")
                 .when()
-                .get("new/")
+                .get(NEW_DECK)
                 .prettyPeek()
                 .then()
                 .assertThat()
@@ -39,7 +40,7 @@ public class DeckTest {
                 given()
                         .queryParam("jokers_enabled","true")
                         .when()
-                        .get("new/").jsonPath();
+                        .get(NEW_DECK).jsonPath();
         String cardID = json.getString("deck_id");
 
         given()
